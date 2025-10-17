@@ -1,0 +1,35 @@
+/* Minimal color palette */
+:root {
+  --color-safe: #10b981;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-primary: #3b82f6;
+}
+
+/* Simple status colors */
+.bg-safe { background-color: var(--color-safe); }
+.bg-warning { background-color: var(--color-warning); }
+.bg-danger { background-color: var(--color-danger); }
+.bg-primary { background-color: var(--color-primary); }
+
+.text-safe { color: var(--color-safe); }
+.text-warning { color: var(--color-warning); }
+.text-danger { color: var(--color-danger); }
+.text-primary { color: var(--color-primary); }
+
+.border-safe { border-color: var(--color-safe); }
+.border-warning { border-color: var(--color-warning); }
+.border-danger { border-color: var(--color-danger); }
+.border-primary { border-color: var(--color-primary); }
+
+/* Minimal shadows */
+.shadow { box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1); }
+.shadow-lg { box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
+
+/* Simple transitions */
+.transition { transition: all 0.2s ease; }
+
+/* Basic hover effects */
+.hover\:shadow-lg:hover { box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
+.hover\:bg-primary:hover { background-color: var(--color-primary); }
+.hover\:text-white:hover { color: white; }
