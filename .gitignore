@@ -3,8 +3,8 @@ node_modules/
 package-lock.json
 
 # Build outputs
-dist/
-build/
+# dist/
+# build/
 *.local
 
 # Environment variables
