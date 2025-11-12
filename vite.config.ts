@@ -1,13 +1,17 @@
 
-  import { defineConfig } from 'vite';
-  import react from '@vitejs/plugin-react-swc';
-  import path from 'path';
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react-swc';
+import path from 'path';
 
-  export default defineConfig({
+export default defineConfig(
+  {
+    base: '/cs4352_Team7/',  // 👈 Add this line
     plugins: [react()],
-    resolve: {
+    resolve: 
+    {
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
-      alias: {
+      alias: 
+      {
         'vaul@1.1.2': 'vaul',
         'sonner@2.0.3': 'sonner',
         'recharts@2.15.2': 'recharts',
@@ -49,12 +53,14 @@
         '@': path.resolve(__dirname, './src'),
       },
     },
-    build: {
-      target: 'esnext',
-      outDir: 'build',
-    },
-    server: {
-      port: 3000,
-      open: true,
-    },
-  });
+  build: 
+  {
+    target: 'esnext',
+    outDir: 'docs',
+  },
+  server: 
+  {
+    port: 3000,
+    open: true,
+  },
+});
