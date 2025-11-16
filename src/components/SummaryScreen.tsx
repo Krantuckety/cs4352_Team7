@@ -110,8 +110,8 @@ export function SummaryScreen({ onBackToDashboard }: SummaryScreenProps) {
       </Button>
 
       <div className="mb-8">
-        <h2 className="mb-2">Security Improvement Summary</h2>
-        <p>Here's what you accomplished in this security check-up</p>
+        <h2 className="mb-2">Security Assessment Summary</h2>
+        <p>Comprehensive overview of your security status and recent activity</p>
       </div>
 
       {/* Improvements Made */}
@@ -121,11 +121,11 @@ export function SummaryScreen({ onBackToDashboard }: SummaryScreenProps) {
           {improvements.map((item) => (
             <Card
               key={item.label}
-              className="border-2 border-gray-800 p-6 text-center"
+              className="border-2 border-gray-800 p-6 text-center rounded-xl"
             >
               <div className="text-4xl mb-2">{item.value}</div>
               <div className="mb-2">{item.label}</div>
-              <div className="text-sm px-3 py-1 border-2 border-gray-800 bg-gray-100 inline-block">
+              <div className="text-sm px-3 py-1 border-2 border-gray-800 bg-gray-100 inline-block rounded-full">
                 {item.change}
               </div>
             </Card>
@@ -139,9 +139,9 @@ export function SummaryScreen({ onBackToDashboard }: SummaryScreenProps) {
           <h3 className="mb-4">Recent Activity</h3>
           <div className="space-y-3">
             {fixedIssues.map((issue, index) => (
-              <Card key={index} className="border-2 border-gray-800 p-5">
+              <Card key={index} className="border-2 border-gray-800 p-5 rounded-xl">
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 border-2 border-gray-800 bg-gray-800 text-white flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 border-2 border-gray-800 bg-gray-800 text-white flex items-center justify-center flex-shrink-0 rounded-lg">
                     ✓
                   </div>
                   <div className="flex-1">
@@ -159,27 +159,27 @@ export function SummaryScreen({ onBackToDashboard }: SummaryScreenProps) {
 
         <div>
           <h3 className="mb-4">Next Steps</h3>
-          <Card className="border-2 border-gray-800 p-5">
+          <Card className="border-2 border-gray-800 p-5 rounded-xl">
             <div className="space-y-4">
               {unsafeAccounts.slice(0, 3).map((account, idx) => (
                 <div key={idx}>
                   <div className="flex items-center gap-2 mb-2">
-                    <div className="w-5 h-5 border-2 border-gray-800" />
-                    <span className="text-sm">Fix {account.name}</span>
+                    <div className="w-5 h-5 border-2 border-gray-800 rounded" />
+                    <span className="text-sm">Secure {account.name}</span>
                   </div>
                   <p className="text-sm text-gray-600 ml-7">
                     {account.issues.length} issue
-                    {account.issues.length !== 1 ? "s" : ""} remaining
+                    {account.issues.length !== 1 ? "s" : ""} to resolve
                   </p>
                 </div>
               ))}
               {unsafeAccounts.length === 0 && (
                 <div>
                   <div className="flex items-center gap-2 mb-2">
-                    <div className="w-5 h-5 border-2 border-gray-800 bg-green-500" />
-                    <span className="text-sm">All accounts secure!</span>
+                    <div className="w-5 h-5 border-2 border-gray-800 bg-green-500 rounded" />
+                    <span className="text-sm">All accounts secured!</span>
                   </div>
-                  <p className="text-sm text-gray-600 ml-7">Great work</p>
+                  <p className="text-sm text-gray-600 ml-7">Excellent work</p>
                 </div>
               )}
             </div>
@@ -192,9 +192,9 @@ export function SummaryScreen({ onBackToDashboard }: SummaryScreenProps) {
         <h3 className="mb-4">Security Best Practices</h3>
         <div className="grid grid-cols-2 gap-4">
           {tips.map((tip, index) => (
-            <Card key={index} className="border-2 border-gray-800 p-5">
+            <Card key={index} className="border-2 border-gray-800 p-5 rounded-xl hover:shadow-lg transition">
               <div className="flex gap-4">
-                <div className="w-10 h-10 border-2 border-gray-800 flex-shrink-0 flex items-center justify-center text-xl">
+                <div className="w-10 h-10 border-2 border-gray-800 flex-shrink-0 flex items-center justify-center text-xl rounded-lg bg-gray-100 font-bold">
                   {index + 1}
                 </div>
                 <div>

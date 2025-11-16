@@ -52,15 +52,15 @@ export default function Dashboard({
       {alertAccounts.length > 0 && (
         <Card className="border-2 border-danger p-6 mb-8">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-danger text-white flex items-center justify-center text-2xl font-bold rounded">
+            <div className="w-12 h-12 bg-danger text-white flex items-center justify-center text-2xl font-bold rounded-full">
               !
             </div>
             <div>
               <h3 className="font-bold mb-1">Action Required</h3>
               <p>
                 {alertAccounts.length} account
-                {alertAccounts.length !== 1 ? "s" : ""} need attention with{" "}
-                {totalIssues} issue{totalIssues !== 1 ? "s" : ""}
+                {alertAccounts.length !== 1 ? "s need" : " needs"} your immediate attention.{" "}
+                {totalIssues} security issue{totalIssues !== 1 ? "s" : ""} detected.
               </p>
             </div>
           </div>
@@ -90,22 +90,22 @@ export default function Dashboard({
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded-full bg-safe" />
-                <span>Safe</span>
+                <div className="w-3 h-3 rounded-full bg-safe" />
+                <span>Secure</span>
               </div>
               <span className="text-2xl font-bold">{safeCount}</span>
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded-full bg-warning" />
-                <span>Needs Work</span>
+                <div className="w-3 h-3 rounded-full bg-warning" />
+                <span>Needs Attention</span>
               </div>
               <span className="text-2xl font-bold">{moderateCount}</span>
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded-full bg-danger" />
-                <span>Unsafe</span>
+                <div className="w-3 h-3 rounded-full bg-danger" />
+                <span>At Risk</span>
               </div>
               <span className="text-2xl font-bold">{unsafeCount}</span>
             </div>
@@ -137,7 +137,7 @@ export default function Dashboard({
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <div
-                    className={`w-12 h-12 ${getRiskColor(account.riskLevel)} rounded`}
+                    className={`w-12 h-12 ${getRiskColor(account.riskLevel)} rounded-lg`}
                   />
                   <div>
                     <div className="font-bold mb-1 flex items-center gap-2">

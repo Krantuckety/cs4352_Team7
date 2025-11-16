@@ -79,7 +79,7 @@ export default function ImprovementSummary({
       <div className="mb-8">
         <h2 className="text-3xl font-bold mb-2">Security Report</h2>
         <p className="text-gray-600">
-          Complete overview of your account security and recommendations
+          Comprehensive analysis of your account security with actionable recommendations
         </p>
       </div>
 
@@ -87,10 +87,10 @@ export default function ImprovementSummary({
       <div className="mb-8">
         <h3 className="text-2xl font-bold mb-4">Security Overview</h3>
         <div className="grid grid-cols-4 gap-4">
-          <Card className="border-2 border-gray-800 p-6 text-center">
+          <Card className="border-2 border-gray-800 p-6 text-center rounded-xl">
             <div className="text-5xl font-bold mb-2">{securityScore}</div>
             <div className="font-medium mb-2">Security Score</div>
-            <div className="text-sm px-3 py-1 border-2 border-gray-800 bg-gray-100 inline-block">
+            <div className="text-sm px-3 py-1 border-2 border-gray-800 bg-gray-100 inline-block rounded-full">
               {securityScore >= 80
                 ? "Excellent"
                 : securityScore >= 60
@@ -99,30 +99,30 @@ export default function ImprovementSummary({
             </div>
           </Card>
 
-          <Card className="border-2 border-gray-800 p-6 text-center">
+          <Card className="border-2 border-gray-800 p-6 text-center rounded-xl">
             <div className="text-5xl font-bold mb-2">{activeIssues}</div>
             <div className="font-medium mb-2">Active Issues</div>
-            <div className="text-sm px-3 py-1 border-2 border-gray-800 bg-red-100 inline-block">
+            <div className="text-sm px-3 py-1 border-2 border-gray-800 bg-red-100 inline-block rounded-full">
               {criticalIssues} critical
             </div>
           </Card>
 
-          <Card className="border-2 border-gray-800 p-6 text-center">
+          <Card className="border-2 border-gray-800 p-6 text-center rounded-xl">
             <div className="text-5xl font-bold mb-2">{safeAccounts}</div>
-            <div className="font-medium mb-2">Safe Accounts</div>
-            <div className="text-sm px-3 py-1 border-2 border-gray-800 bg-green-100 inline-block">
-              of {accounts.length}
+            <div className="font-medium mb-2">Secure Accounts</div>
+            <div className="text-sm px-3 py-1 border-2 border-gray-800 bg-green-100 inline-block rounded-full">
+              of {accounts.length} total
             </div>
           </Card>
 
-          <Card className="border-2 border-gray-800 p-6 text-center">
+          <Card className="border-2 border-gray-800 p-6 text-center rounded-xl">
             <div className="text-5xl font-bold mb-2">{fixedIssues}</div>
-            <div className="font-medium mb-2">Issues Fixed</div>
-            <div className="text-sm px-3 py-1 border-2 border-gray-800 bg-blue-100 inline-block">
+            <div className="font-medium mb-2">Issues Resolved</div>
+            <div className="text-sm px-3 py-1 border-2 border-gray-800 bg-blue-100 inline-block rounded-full">
               {totalIssues > 0
                 ? Math.round((fixedIssues / totalIssues) * 100)
                 : 0}
-              % resolved
+              % complete
             </div>
           </Card>
         </div>
@@ -136,10 +136,10 @@ export default function ImprovementSummary({
           </h3>
           <div className="space-y-3">
             {accountsNeedingWork.map((account) => (
-              <Card key={account.id} className="border-2 border-gray-800 p-6">
+              <Card key={account.id} className="border-2 border-gray-800 p-6 rounded-xl">
                 <div className="flex items-start gap-4">
                   <div
-                    className={`w-12 h-12 border-2 border-gray-800 flex items-center justify-center flex-shrink-0 text-white font-bold ${
+                    className={`w-12 h-12 border-2 border-gray-800 flex items-center justify-center flex-shrink-0 text-white font-bold rounded-lg ${
                       account.riskLevel === "unsafe"
                         ? "bg-red-500"
                         : "bg-yellow-500"
@@ -151,23 +151,23 @@ export default function ImprovementSummary({
                     <div className="flex items-start justify-between mb-2">
                       <h4 className="text-xl font-bold">{account.name}</h4>
                       <span
-                        className={`text-sm px-3 py-1 border-2 border-gray-800 font-bold ${
+                        className={`text-sm px-3 py-1 border-2 border-gray-800 font-bold rounded-full ${
                           account.riskLevel === "unsafe"
                             ? "bg-red-500 text-white"
                             : "bg-yellow-500 text-white"
                         }`}
                       >
                         {account.riskLevel === "unsafe"
-                          ? "UNSAFE"
-                          : "NEEDS WORK"}
+                          ? "HIGH RISK"
+                          : "NEEDS ATTENTION"}
                       </span>
                     </div>
                     <p className="text-gray-700 mb-3">
-                      {account.issues.filter((i) => !i.fixed).length} issue
+                      {account.issues.filter((i) => !i.fixed).length} security issue
                       {account.issues.filter((i) => !i.fixed).length !== 1
                         ? "s"
                         : ""}{" "}
-                      found:{" "}
+                      detected:{" "}
                       {account.issues
                         .filter((i) => !i.fixed)
                         .map((i) => i.title)
@@ -186,14 +186,14 @@ export default function ImprovementSummary({
 
       {/* All Secure Message */}
       {accountsNeedingWork.length === 0 && (
-        <Card className="border-2 border-green-500 bg-green-50 p-8 text-center mb-8">
+        <Card className="border-2 border-green-500 bg-green-50 p-8 text-center mb-8 rounded-xl">
           <div className="w-20 h-20 rounded-full border-2 border-gray-800 bg-green-500 mx-auto mb-4 flex items-center justify-center">
             <span className="text-4xl text-white">✓</span>
           </div>
-          <h3 className="text-2xl font-bold mb-2">All Accounts Secure!</h3>
+          <h3 className="text-2xl font-bold mb-2">All Accounts Secured!</h3>
           <p className="text-gray-700">
-            Excellent work! All your accounts are properly secured. Keep up the
-            good security practices.
+            Outstanding! Your accounts are well-protected. Continue following these
+            security best practices to stay safe.
           </p>
         </Card>
       )}
@@ -203,7 +203,7 @@ export default function ImprovementSummary({
         <h3 className="text-2xl font-bold mb-4">Security Best Practices</h3>
         <div className="grid grid-cols-2 gap-4">
           {securityTips.map((tip, index) => (
-            <Card key={index} className="border-2 border-gray-800 p-6">
+            <Card key={index} className="border-2 border-gray-800 p-6 rounded-xl hover:shadow-lg transition">
               <div className="flex gap-4">
                 <div className="text-4xl">{tip.icon}</div>
                 <div>
