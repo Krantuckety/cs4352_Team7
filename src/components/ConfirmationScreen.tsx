@@ -1,5 +1,5 @@
-import { Button } from './ui/button';
-import { Card } from './ui/card';
+import { Button } from "./ui/button";
+import { Card } from "./ui/card";
 
 interface ConfirmationScreenProps {
   oldScore: number;
@@ -7,11 +7,30 @@ interface ConfirmationScreenProps {
   onBackToDashboard: () => void;
 }
 
-export function ConfirmationScreen({ oldScore, newScore, onBackToDashboard }: ConfirmationScreenProps) {
+export function ConfirmationScreen({
+  oldScore,
+  newScore,
+  onBackToDashboard,
+}: ConfirmationScreenProps) {
   const improvements = [
-    { id: 1, title: 'Password Updated', description: 'Strong, unique password created', icon: '🔒' },
-    { id: 2, title: '2FA Enabled', description: 'Two-factor authentication is now active', icon: '📱' },
-    { id: 3, title: 'Security Improved', description: 'Account protection level increased', icon: '✓' },
+    {
+      id: 1,
+      title: "Password Updated",
+      description: "Strong, unique password created",
+      icon: "🔒",
+    },
+    {
+      id: 2,
+      title: "2FA Enabled",
+      description: "Two-factor authentication is now active",
+      icon: "📱",
+    },
+    {
+      id: 3,
+      title: "Security Improved",
+      description: "Account protection level increased",
+      icon: "✓",
+    },
   ];
 
   return (
@@ -29,7 +48,7 @@ export function ConfirmationScreen({ oldScore, newScore, onBackToDashboard }: Co
       <Card className="border-2 border-gray-800 p-8 mb-8">
         <div className="text-center">
           <h3 className="mb-6">Your Security Score Improved</h3>
-          
+
           <div className="flex items-center justify-center gap-12 mb-8">
             <div className="text-center">
               <div className="p-6 border-2 border-gray-800 mb-3">
@@ -38,9 +57,9 @@ export function ConfirmationScreen({ oldScore, newScore, onBackToDashboard }: Co
               </div>
               <div className="text-sm">Needs Improvement</div>
             </div>
-            
+
             <div className="text-4xl">→</div>
-            
+
             <div className="text-center">
               <div className="p-6 border-2 border-gray-800 bg-gray-800 text-white mb-3">
                 <div className="text-sm mb-2">Current Score</div>

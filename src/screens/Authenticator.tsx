@@ -1,8 +1,8 @@
-import { Card } from '../components/ui/card';
-import { Button } from '../components/ui/button';
-import { ArrowLeft, ExternalLink } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { Account } from '../types';
+import { Card } from "../components/ui/card";
+import { Button } from "../components/ui/button";
+import { ArrowLeft, ExternalLink } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Account } from "../types";
 
 interface AuthenticatorProps {
   onBack: () => void;
@@ -16,13 +16,20 @@ interface AccountCode {
   timeLeft: number;
 }
 
-export default function Authenticator({ onBack, accountName, accounts }: AuthenticatorProps) {
+export default function Authenticator({
+  onBack,
+  accountName,
+  accounts,
+}: AuthenticatorProps) {
   const CODE_DURATION = 60; // 60 seconds
-  const [singleCode, setSingleCode] = useState('123 456');
+  const [singleCode, setSingleCode] = useState("123 456");
   const [singleTimeLeft, setSingleTimeLeft] = useState(CODE_DURATION);
   const [accountCodes, setAccountCodes] = useState<AccountCode[]>([]);
 
-  console.log('Authenticator props:', { accountName, accountsLength: accounts?.length });
+  console.log("Authenticator props:", {
+    accountName,
+    accountsLength: accounts?.length,
+  });
 
   // Generate a random 6-digit code
   const generateCode = () => {
@@ -35,7 +42,7 @@ export default function Authenticator({ onBack, accountName, accounts }: Authent
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
+    return `${mins}:${secs.toString().padStart(2, "0")}`;
   };
 
   // Initialize codes for all accounts - synchronized
@@ -46,7 +53,7 @@ export default function Authenticator({ onBack, accountName, accounts }: Authent
       const secondsSinceEpoch = Math.floor(now.getTime() / 1000);
       const timeLeftSync = CODE_DURATION - (secondsSinceEpoch % CODE_DURATION);
 
-      const initialCodes = accounts.map(account => ({
+      const initialCodes = accounts.map((account) => ({
         accountName: account.name,
         code: generateCode(),
         timeLeft: timeLeftSync,
@@ -100,20 +107,27 @@ export default function Authenticator({ onBack, accountName, accounts }: Authent
     }
   }, [accounts, accountName]);
 
-  const displayName = accountName || 'your account';
+  const displayName = accountName || "your account";
 
   // Single account view (from fix flow)
   if (accountName) {
     return (
       <div>
-        <Button variant="ghost" size="sm" className="mb-6 -ml-2" onClick={onBack}>
+        <Button
+          variant="ghost"
+          size="sm"
+          className="mb-6 -ml-2"
+          onClick={onBack}
+        >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back
         </Button>
 
         <div className="mb-8">
           <h2 className="text-3xl font-bold mb-2">Authenticator</h2>
-          <p className="text-gray-600">Two-factor authentication code for {accountName}</p>
+          <p className="text-gray-600">
+            Two-factor authentication code for {accountName}
+          </p>
         </div>
 
         <Card className="border-2 border-gray-800 p-8">
@@ -133,7 +147,9 @@ export default function Authenticator({ onBack, accountName, accounts }: Authent
             <div className="p-4 border-2 border-gray-800 bg-blue-50">
               <h4 className="font-bold mb-2">How to use:</h4>
               <div className="space-y-2 text-sm">
-                <div>• Enter this 6-digit code when logging into {displayName}</div>
+                <div>
+                  • Enter this 6-digit code when logging into {displayName}
+                </div>
                 <div>• Code refreshes every 60 seconds</div>
                 <div>• Keep your authenticator app secure</div>
               </div>
@@ -154,15 +170,23 @@ export default function Authenticator({ onBack, accountName, accounts }: Authent
 
       <div className="mb-8">
         <h2 className="text-3xl font-bold mb-2">Authenticator Hub</h2>
-        <p className="text-gray-600">Manage all your two-factor authentication codes in one place</p>
+        <p className="text-gray-600">
+          Manage all your two-factor authentication codes in one place
+        </p>
       </div>
 
       <div className="mb-6 p-4 border-2 border-gray-800 bg-blue-50">
         <h4 className="font-bold mb-2">About 2FA Codes:</h4>
         <div className="space-y-1 text-sm">
-          <div>• Each code is unique to its account and refreshes every 60 seconds</div>
-          <div>• Use these codes when logging in to add an extra layer of security</div>
-          <div>• Keep this page secure - anyone with access can see your codes</div>
+          <div>
+            • Each code is unique to its account and refreshes every 60 seconds
+          </div>
+          <div>
+            • Use these codes when logging in to add an extra layer of security
+          </div>
+          <div>
+            • Keep this page secure - anyone with access can see your codes
+          </div>
         </div>
       </div>
 
@@ -173,9 +197,14 @@ export default function Authenticator({ onBack, accountName, accounts }: Authent
       ) : (
         <div className="grid grid-cols-2 gap-4">
           {accountCodes.map((account) => {
-            const accountData = accounts?.find(a => a.name === account.accountName);
+            const accountData = accounts?.find(
+              (a) => a.name === account.accountName,
+            );
             return (
-              <Card key={account.accountName} className="border-2 border-gray-800 p-6">
+              <Card
+                key={account.accountName}
+                className="border-2 border-gray-800 p-6"
+              >
                 <div className="mb-4">
                   <div className="flex items-center justify-between mb-1">
                     <h3 className="text-lg font-bold">{account.accountName}</h3>
@@ -191,27 +220,31 @@ export default function Authenticator({ onBack, accountName, accounts }: Authent
                       </a>
                     )}
                   </div>
-                  <div className="text-xs text-gray-600">Two-Factor Authentication</div>
+                  <div className="text-xs text-gray-600">
+                    Two-Factor Authentication
+                  </div>
                 </div>
 
-            <div className="p-4 border-2 border-gray-800 bg-gray-50 text-center mb-3">
-              <div className="text-3xl font-bold tracking-wider mb-2">
-                {account.code}
-              </div>
-              <div className="text-xs text-gray-600">
-                Expires in {formatTime(account.timeLeft)}
-              </div>
-            </div>
+                <div className="p-4 border-2 border-gray-800 bg-gray-50 text-center mb-3">
+                  <div className="text-3xl font-bold tracking-wider mb-2">
+                    {account.code}
+                  </div>
+                  <div className="text-xs text-gray-600">
+                    Expires in {formatTime(account.timeLeft)}
+                  </div>
+                </div>
 
-            <div className="flex items-center justify-center">
-              <div className="w-full bg-gray-200 h-2 border-2 border-gray-800">
-                <div
-                  className="bg-gray-800 h-full transition-all duration-1000"
-                  style={{ width: `${(account.timeLeft / CODE_DURATION) * 100}%` }}
-                />
-              </div>
-            </div>
-          </Card>
+                <div className="flex items-center justify-center">
+                  <div className="w-full bg-gray-200 h-2 border-2 border-gray-800">
+                    <div
+                      className="bg-gray-800 h-full transition-all duration-1000"
+                      style={{
+                        width: `${(account.timeLeft / CODE_DURATION) * 100}%`,
+                      }}
+                    />
+                  </div>
+                </div>
+              </Card>
             );
           })}
         </div>

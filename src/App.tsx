@@ -18,10 +18,10 @@ export default function App() {
     | "summary"
     | "authenticator"
   >("dashboard");
-  const [selectedAccount, setSelectedAccount] =
-    useState<string>("");
-  const [selectedAccountStatus, setSelectedAccountStatus] =
-    useState<"safe" | "needs-work" | "unsafe">("safe");
+  const [selectedAccount, setSelectedAccount] = useState<string>("");
+  const [selectedAccountStatus, setSelectedAccountStatus] = useState<
+    "safe" | "needs-work" | "unsafe"
+  >("safe");
   const [score, setScore] = useState(72);
   const [previousScore, setPreviousScore] = useState(72);
 
@@ -118,10 +118,7 @@ export default function App() {
         {/* Breadcrumb */}
         <div className="mb-6">
           <div className="text-sm">
-            <span
-              className="cursor-pointer"
-              onClick={navigateToDashboard}
-            >
+            <span className="cursor-pointer" onClick={navigateToDashboard}>
               Home
             </span>
             <span className="mx-2">/</span>
@@ -168,14 +165,10 @@ export default function App() {
           />
         )}
         {currentScreen === "summary" && (
-          <SummaryScreen
-            onBackToDashboard={navigateToDashboard}
-          />
+          <SummaryScreen onBackToDashboard={navigateToDashboard} />
         )}
         {currentScreen === "authenticator" && (
-          <Authenticator
-            onBack={navigateToDashboard}
-          />
+          <Authenticator onBack={navigateToDashboard} />
         )}
       </main>
 
