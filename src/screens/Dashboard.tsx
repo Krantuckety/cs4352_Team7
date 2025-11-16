@@ -1,7 +1,7 @@
-import { Account } from '../types';
-import { Card } from '../components/ui/card';
-import { Button } from '../components/ui/button';
-import { ExternalLink } from 'lucide-react';
+import { Account } from "../types";
+import { Card } from "../components/ui/card";
+import { Button } from "../components/ui/button";
+import { ExternalLink } from "lucide-react";
 
 interface DashboardProps {
   accounts: Account[];
@@ -10,31 +10,41 @@ interface DashboardProps {
   onViewSummary: () => void;
 }
 
-export default function Dashboard({ accounts, securityScore, onAccountClick, onViewSummary }: DashboardProps) {
+export default function Dashboard({
+  accounts,
+  securityScore,
+  onAccountClick,
+  onViewSummary,
+}: DashboardProps) {
   const getRiskColor = (risk: string) => {
-    if (risk === 'safe') return 'bg-safe';
-    if (risk === 'moderate') return 'bg-warning';
-    return 'bg-danger';
+    if (risk === "safe") return "bg-safe";
+    if (risk === "moderate") return "bg-warning";
+    return "bg-danger";
   };
 
   const getRiskLabel = (risk: string) => {
-    if (risk === 'safe') return 'Safe';
-    if (risk === 'moderate') return 'Needs Work';
-    return 'Unsafe';
+    if (risk === "safe") return "Safe";
+    if (risk === "moderate") return "Needs Work";
+    return "Unsafe";
   };
 
   const getScoreColor = () => {
-    if (securityScore >= 80) return 'bg-safe';
-    if (securityScore >= 60) return 'bg-warning';
-    return 'bg-danger';
+    if (securityScore >= 80) return "bg-safe";
+    if (securityScore >= 60) return "bg-warning";
+    return "bg-danger";
   };
 
-  const safeCount = accounts.filter(a => a.riskLevel === 'safe').length;
-  const moderateCount = accounts.filter(a => a.riskLevel === 'moderate').length;
-  const unsafeCount = accounts.filter(a => a.riskLevel === 'unsafe').length;
+  const safeCount = accounts.filter((a) => a.riskLevel === "safe").length;
+  const moderateCount = accounts.filter(
+    (a) => a.riskLevel === "moderate",
+  ).length;
+  const unsafeCount = accounts.filter((a) => a.riskLevel === "unsafe").length;
 
-  const alertAccounts = accounts.filter(a => a.riskLevel !== 'safe');
-  const totalIssues = accounts.reduce((sum, acc) => sum + acc.issues.filter(i => !i.fixed).length, 0);
+  const alertAccounts = accounts.filter((a) => a.riskLevel !== "safe");
+  const totalIssues = accounts.reduce(
+    (sum, acc) => sum + acc.issues.filter((i) => !i.fixed).length,
+    0,
+  );
 
   return (
     <div className="space-y-8">
@@ -48,7 +58,9 @@ export default function Dashboard({ accounts, securityScore, onAccountClick, onV
             <div>
               <h3 className="font-bold mb-1">Action Required</h3>
               <p>
-                {alertAccounts.length} account{alertAccounts.length !== 1 ? 's' : ''} need attention with {totalIssues} issue{totalIssues !== 1 ? 's' : ''}
+                {alertAccounts.length} account
+                {alertAccounts.length !== 1 ? "s" : ""} need attention with{" "}
+                {totalIssues} issue{totalIssues !== 1 ? "s" : ""}
               </p>
             </div>
           </div>
@@ -63,7 +75,10 @@ export default function Dashboard({ accounts, securityScore, onAccountClick, onV
             <div className="text-7xl font-bold">{securityScore}</div>
             <div className="flex-1 pb-2">
               <div className="w-full h-8 border-2 border-gray-800 mb-2">
-                <div className={`h-full ${getScoreColor()} transition`} style={{ width: `${securityScore}%` }} />
+                <div
+                  className={`h-full ${getScoreColor()} transition`}
+                  style={{ width: `${securityScore}%` }}
+                />
               </div>
             </div>
           </div>
@@ -101,14 +116,19 @@ export default function Dashboard({ accounts, securityScore, onAccountClick, onV
       {/* Accounts */}
       <div>
         <div className="flex items-center justify-between mb-4 mt-6">
-          <h3 className="text-2xl font-bold">Connected Accounts ({accounts.length})</h3>
-          <Button onClick={onViewSummary} className="bg-primary text-white hover:bg-primary">
+          <h3 className="text-2xl font-bold">
+            Connected Accounts ({accounts.length})
+          </h3>
+          <Button
+            onClick={onViewSummary}
+            className="bg-primary text-white hover:bg-primary"
+          >
             View Report
           </Button>
         </div>
 
         <div className="grid grid-cols-2 gap-4">
-          {accounts.map(account => (
+          {accounts.map((account) => (
             <Card
               key={account.id}
               className="border-2 border-gray-800 p-5 cursor-pointer hover:shadow-lg transition"
@@ -116,7 +136,9 @@ export default function Dashboard({ accounts, securityScore, onAccountClick, onV
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <div className={`w-12 h-12 ${getRiskColor(account.riskLevel)} rounded`} />
+                  <div
+                    className={`w-12 h-12 ${getRiskColor(account.riskLevel)} rounded`}
+                  />
                   <div>
                     <div className="font-bold mb-1 flex items-center gap-2">
                       <span>{account.name}</span>
@@ -133,17 +155,28 @@ export default function Dashboard({ accounts, securityScore, onAccountClick, onV
                       )}
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className={`w-3 h-3 rounded-full ${getRiskColor(account.riskLevel)}`} />
-                      <span className="text-sm">{getRiskLabel(account.riskLevel)}</span>
+                      <div
+                        className={`w-3 h-3 rounded-full ${getRiskColor(account.riskLevel)}`}
+                      />
+                      <span className="text-sm">
+                        {getRiskLabel(account.riskLevel)}
+                      </span>
                     </div>
-                    {account.issues.filter(i => !i.fixed).length > 0 && (
+                    {account.issues.filter((i) => !i.fixed).length > 0 && (
                       <div className="mt-1 text-sm text-gray-600">
-                        {account.issues.filter(i => !i.fixed).length} issue{account.issues.filter(i => !i.fixed).length !== 1 ? 's' : ''}
+                        {account.issues.filter((i) => !i.fixed).length} issue
+                        {account.issues.filter((i) => !i.fixed).length !== 1
+                          ? "s"
+                          : ""}
                       </div>
                     )}
                   </div>
                 </div>
-                <Button variant="outline" size="sm" className="border-2 border-gray-800">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="border-2 border-gray-800"
+                >
                   View
                 </Button>
               </div>

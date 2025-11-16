@@ -1,52 +1,65 @@
-import { Button } from './ui/button';
-import { Card } from './ui/card';
+import { Button } from "./ui/button";
+import { Card } from "./ui/card";
 
 interface UpdatedDashboardScreenProps {
   score: number;
   previousScore?: number;
   onViewSummary: () => void;
-  onViewDetails: (accountName: string, status: 'safe' | 'needs-work' | 'unsafe') => void;
+  onViewDetails: (
+    accountName: string,
+    status: "safe" | "needs-work" | "unsafe",
+  ) => void;
 }
 
-export function UpdatedDashboardScreen({ score, previousScore = 72, onViewSummary, onViewDetails }: UpdatedDashboardScreenProps) {
-  const accounts: Array<{ name: string; status: 'safe' | 'needs-work' | 'unsafe' }> = [
-    { name: 'Gmail', status: 'safe' },
-    { name: 'Amazon', status: 'safe' },
-    { name: 'Netflix', status: 'safe' },
-    { name: 'Facebook', status: 'safe' },
-    { name: 'Banking App', status: 'needs-work' },
-    { name: 'Spotify', status: 'safe' },
-    { name: 'LinkedIn', status: 'safe' },
-    { name: 'Twitter', status: 'safe' },
+export function UpdatedDashboardScreen({
+  score,
+  previousScore = 72,
+  onViewSummary,
+  onViewDetails,
+}: UpdatedDashboardScreenProps) {
+  const accounts: Array<{
+    name: string;
+    status: "safe" | "needs-work" | "unsafe";
+  }> = [
+    { name: "Gmail", status: "safe" },
+    { name: "Amazon", status: "safe" },
+    { name: "Netflix", status: "safe" },
+    { name: "Facebook", status: "safe" },
+    { name: "Banking App", status: "needs-work" },
+    { name: "Spotify", status: "safe" },
+    { name: "LinkedIn", status: "safe" },
+    { name: "Twitter", status: "safe" },
   ];
 
-  const getStatusColor = (status: 'safe' | 'needs-work' | 'unsafe') => {
-    if (status === 'safe') return 'bg-green-500';
-    if (status === 'needs-work') return 'bg-yellow-500';
-    return 'bg-red-500';
+  const getStatusColor = (status: "safe" | "needs-work" | "unsafe") => {
+    if (status === "safe") return "bg-green-500";
+    if (status === "needs-work") return "bg-yellow-500";
+    return "bg-red-500";
   };
 
   const getScoreColor = (score: number) => {
-    if (score >= 80) return 'bg-green-500';
-    if (score >= 60) return 'bg-yellow-500';
-    return 'bg-red-500';
+    if (score >= 80) return "bg-green-500";
+    if (score >= 60) return "bg-yellow-500";
+    return "bg-red-500";
   };
 
   const getScoreMessage = (score: number) => {
-    if (score >= 80) return 'Great security - Keep it up!';
-    if (score >= 60) return 'Good security - Keep improving!';
-    return 'Needs improvement';
+    if (score >= 80) return "Great security - Keep it up!";
+    if (score >= 60) return "Good security - Keep improving!";
+    return "Needs improvement";
   };
 
-  const getStatusLabel = (status: 'safe' | 'needs-work' | 'unsafe') => {
-    if (status === 'safe') return 'Safe';
-    if (status === 'needs-work') return 'Needs Work';
-    return 'Unsafe';
+  const getStatusLabel = (status: "safe" | "needs-work" | "unsafe") => {
+    if (status === "safe") return "Safe";
+    if (status === "needs-work") return "Needs Work";
+    return "Unsafe";
   };
 
-  const safeCount = accounts.filter(a => a.status === 'safe').length;
-  const needsWorkCount = accounts.filter(a => a.status === 'needs-work').length;
-  const unsafeCount = accounts.filter(a => a.status === 'unsafe').length;
+  const safeCount = accounts.filter((a) => a.status === "safe").length;
+  const needsWorkCount = accounts.filter(
+    (a) => a.status === "needs-work",
+  ).length;
+  const unsafeCount = accounts.filter((a) => a.status === "unsafe").length;
 
   const scoreDelta = score - previousScore;
   const attentionCount = needsWorkCount + unsafeCount;
@@ -63,7 +76,12 @@ export function UpdatedDashboardScreen({ score, previousScore = 72, onViewSummar
             </div>
             <div>
               <h3 className="mb-1">Security Improvements Applied!</h3>
-              <p>Your security score {scoreDelta >= 0 ? 'increased' : 'decreased'} by {scoreDelta >= 0 ? '+' : ''}{scoreDelta} points</p>
+              <p>
+                Your security score{" "}
+                {scoreDelta >= 0 ? "increased" : "decreased"} by{" "}
+                {scoreDelta >= 0 ? "+" : ""}
+                {scoreDelta} points
+              </p>
             </div>
           </div>
           <Button
@@ -101,7 +119,10 @@ export function UpdatedDashboardScreen({ score, previousScore = 72, onViewSummar
           <div className="mt-6 p-4 border-2 border-gray-800 bg-gray-100">
             <div className="flex items-center justify-between">
               <span>Recent change:</span>
-              <span>{previousScore} → {score} ({scoreDelta >= 0 ? '+' : ''}{scoreDelta} points)</span>
+              <span>
+                {previousScore} → {score} ({scoreDelta >= 0 ? "+" : ""}
+                {scoreDelta} points)
+              </span>
             </div>
           </div>
         </Card>
@@ -143,7 +164,8 @@ export function UpdatedDashboardScreen({ score, previousScore = 72, onViewSummar
           <h3>Connected Accounts ({accounts.length})</h3>
           {attentionCount > 0 && (
             <div className="px-4 py-2 border-2 border-gray-800 bg-gray-500 text-white text-sm">
-              {attentionCount} account{attentionCount !== 1 ? 's' : ''} need{attentionCount === 1 ? 's' : ''} attention
+              {attentionCount} account{attentionCount !== 1 ? "s" : ""} need
+              {attentionCount === 1 ? "s" : ""} attention
             </div>
           )}
         </div>
@@ -159,7 +181,9 @@ export function UpdatedDashboardScreen({ score, previousScore = 72, onViewSummar
                       <div
                         className={`w-3 h-3 rounded-full border-2 border-gray-800 ${getStatusColor(account.status)}`}
                       />
-                      <span className="text-sm">{getStatusLabel(account.status)}</span>
+                      <span className="text-sm">
+                        {getStatusLabel(account.status)}
+                      </span>
                     </div>
                   </div>
                 </div>

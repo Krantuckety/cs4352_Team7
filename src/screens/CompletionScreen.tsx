@@ -1,7 +1,7 @@
-import { Card } from '../components/ui/card';
-import { Button } from '../components/ui/button';
-import { Check } from 'lucide-react';
-import { SecurityIssue } from '../types';
+import { Card } from "../components/ui/card";
+import { Button } from "../components/ui/button";
+import { Check } from "lucide-react";
+import { SecurityIssue } from "../types";
 
 interface CompletionScreenProps {
   accountName: string;
@@ -29,13 +29,19 @@ export default function CompletionScreen({
           <Check className="w-16 h-16 text-white" strokeWidth={4} />
         </div>
         <h1 className="text-4xl font-bold mb-4">
-          {issuesFixedCount > 0 ? 'Security Issues Resolved!' : 'Progress Saved'}
+          {issuesFixedCount > 0
+            ? "Security Issues Resolved!"
+            : "Progress Saved"}
         </h1>
         <p className="text-xl text-gray-700">
           {issuesFixedCount > 0 ? (
-            <>Great work! <strong>{accountName}</strong> is now more secure.</>
+            <>
+              Great work! <strong>{accountName}</strong> is now more secure.
+            </>
           ) : (
-            <>You can continue fixing <strong>{accountName}</strong> later.</>
+            <>
+              You can continue fixing <strong>{accountName}</strong> later.
+            </>
           )}
         </p>
       </div>
@@ -43,7 +49,9 @@ export default function CompletionScreen({
       {/* Score Update */}
       <Card className="border-2 border-gray-800 p-8 mb-8">
         <div className="text-center">
-          <h3 className="text-2xl font-bold mb-8">Your Security Score Improved</h3>
+          <h3 className="text-2xl font-bold mb-8">
+            Your Security Score Improved
+          </h3>
 
           <div className="flex items-center justify-center gap-12 mb-8">
             <div className="text-center">
@@ -62,7 +70,7 @@ export default function CompletionScreen({
                 <div className="text-6xl font-bold">{newScore}</div>
               </div>
               <div className="text-sm font-medium">
-                {newScore >= 80 ? 'Excellent!' : 'Better!'}
+                {newScore >= 80 ? "Excellent!" : "Better!"}
               </div>
             </div>
           </div>
@@ -78,8 +86,11 @@ export default function CompletionScreen({
         <Card className="border-2 border-gray-800 p-8 mb-8">
           <h3 className="text-2xl font-bold mb-6">What You Just Fixed</h3>
           <div className="space-y-4">
-            {fixedIssues.map(issue => (
-              <div key={issue.id} className="flex items-start gap-4 p-4 border-2 border-gray-800 bg-green-50">
+            {fixedIssues.map((issue) => (
+              <div
+                key={issue.id}
+                className="flex items-start gap-4 p-4 border-2 border-gray-800 bg-green-50"
+              >
                 <div className="w-10 h-10 border-2 border-gray-800 bg-green-500 text-white flex items-center justify-center flex-shrink-0">
                   <Check className="w-6 h-6" />
                 </div>
@@ -97,7 +108,8 @@ export default function CompletionScreen({
       <Card className="border-2 border-gray-800 p-8 mb-8 bg-blue-50">
         <h3 className="text-2xl font-bold mb-4">Keep Going!</h3>
         <p className="text-gray-700 mb-4">
-          You're on the right track. Check your dashboard to see if other accounts need attention.
+          You're on the right track. Check your dashboard to see if other
+          accounts need attention.
         </p>
         <div className="space-y-2 text-sm">
           <div className="flex items-center gap-2">

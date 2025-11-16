@@ -1,5 +1,5 @@
-export type RiskLevel = 'safe' | 'moderate' | 'unsafe';
-export type IssueSeverity = 'low' | 'medium' | 'high';
+export type RiskLevel = "safe" | "moderate" | "unsafe";
+export type IssueSeverity = "low" | "medium" | "high";
 
 export interface SecurityIssue {
   id: string;

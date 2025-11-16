@@ -1,44 +1,53 @@
-import { Button } from './ui/button';
-import { Card } from './ui/card';
-import { accountsData } from '../data/accountsData';
-import { ExternalLink } from 'lucide-react';
+import { Button } from "./ui/button";
+import { Card } from "./ui/card";
+import { accountsData } from "../data/accountsData";
+import { ExternalLink } from "lucide-react";
 
 interface DashboardScreenProps {
   score: number;
-  onViewDetails: (accountName: string, status: 'safe' | 'needs-work' | 'unsafe') => void;
+  onViewDetails: (
+    accountName: string,
+    status: "safe" | "needs-work" | "unsafe",
+  ) => void;
   onStartCheckup: () => void;
 }
 
-export function DashboardScreen({ score, onViewDetails, onStartCheckup }: DashboardScreenProps) {
+export function DashboardScreen({
+  score,
+  onViewDetails,
+  onStartCheckup,
+}: DashboardScreenProps) {
   const accounts = accountsData;
 
   const getStatusColor = (status: string) => {
-    if (status === 'safe') return 'bg-green-500';
-    if (status === 'needs-work') return 'bg-yellow-500';
-    return 'bg-red-500';
+    if (status === "safe") return "bg-green-500";
+    if (status === "needs-work") return "bg-yellow-500";
+    return "bg-red-500";
   };
 
   const getScoreColor = (score: number) => {
-    if (score >= 80) return 'bg-green-500';
-    if (score >= 60) return 'bg-yellow-500';
-    return 'bg-red-500';
+    if (score >= 80) return "bg-green-500";
+    if (score >= 60) return "bg-yellow-500";
+    return "bg-red-500";
   };
 
   const getScoreMessage = (score: number) => {
-    if (score >= 80) return 'Great security - Keep it up!';
-    if (score >= 60) return 'Your security score needs improvement';
-    return 'Critical - Immediate action required';
+    if (score >= 80) return "Great security - Keep it up!";
+    if (score >= 60) return "Your security score needs improvement";
+    return "Critical - Immediate action required";
   };
 
   const getStatusLabel = (status: string) => {
-    if (status === 'safe') return 'Safe';
-    if (status === 'needs-work') return 'Needs Work';
-    return 'Unsafe';
+    if (status === "safe") return "Safe";
+    if (status === "needs-work") return "Needs Work";
+    return "Unsafe";
   };
 
-  const safeCount = accounts.filter(a => a.status === 'safe').length;
-  const needsWorkCount = accounts.filter(a => a.status === 'needs-work').length;
-  const unsafeCount = accounts.filter(a => a.status === 'unsafe').length;
+  const safeCount = accounts.filter((a) => a.status === "safe").length;
+  const needsWorkCount = accounts.filter(
+    (a) => a.status === "needs-work",
+  ).length;
+  const unsafeCount = accounts.filter((a) => a.status === "unsafe").length;
 
   return (
     <div>
@@ -133,7 +142,9 @@ export function DashboardScreen({ score, onViewDetails, onStartCheckup }: Dashbo
                       <div
                         className={`w-3 h-3 rounded-full border-2 border-gray-800 ${getStatusColor(account.status)}`}
                       />
-                      <span className="text-sm">{getStatusLabel(account.status)}</span>
+                      <span className="text-sm">
+                        {getStatusLabel(account.status)}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -141,7 +152,12 @@ export function DashboardScreen({ score, onViewDetails, onStartCheckup }: Dashbo
                   variant="outline"
                   size="sm"
                   className="border-2 border-gray-800"
-                  onClick={() => onViewDetails(account.name, account.status as 'safe' | 'needs-work' | 'unsafe')}
+                  onClick={() =>
+                    onViewDetails(
+                      account.name,
+                      account.status as "safe" | "needs-work" | "unsafe",
+                    )
+                  }
                 >
                   View Details
                 </Button>
