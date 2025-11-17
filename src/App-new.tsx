@@ -103,7 +103,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-sky-600 border-b-4 border-sky-900 text-white">
       {/* Header */}
       <header className="bg-white border-b-2 border-gray-800">
         <div className="max-w-7xl mx-auto px-8 py-6">
@@ -113,8 +113,8 @@ export default function App() {
               <button
                 className={`px-4 py-2 border-2 border-gray-800 transition ${
                   currentScreen === "dashboard"
-                    ? "bg-gray-800 text-white"
-                    : "bg-white hover:bg-gray-100"
+                    ? "bg-sky-800 text-white border-sky-900"
+                    : "bg-white border-sky-600 hover:bg-sky-50"
                 }`}
                 onClick={handleBackToDashboard}
               >
@@ -123,14 +123,14 @@ export default function App() {
               <button
                 className={`px-4 py-2 border-2 border-gray-800 transition ${
                   currentScreen === "authenticator"
-                    ? "bg-gray-800 text-white"
-                    : "bg-white hover:bg-gray-100"
+                    ? "bg-sky-800 text-white border-sky-900"
+                    : "bg-white border-sky-600 hover:bg-sky-50"
                 }`}
                 onClick={() => handleViewAuthenticator()}
               >
                 Authenticator
               </button>
-              <button className="px-4 py-2 border-2 border-gray-800 bg-white hover:bg-gray-100 transition">
+              <button className="px-4 py-2 border-2 rounded bg-white border-sky-600 hover:bg-sky-50 transition">
                 Settings
               </button>
             </nav>
