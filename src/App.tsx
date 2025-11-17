@@ -80,32 +80,32 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-sky-600">
       {/* Header */}
-      <header className="border-b-4 border-gray-800 bg-white">
+      <header className="border-b-4 border-sky-900 bg-sky-600 text-white">
         <div className="max-w-7xl mx-auto px-8 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 border-2 border-gray-800 bg-gray-800" />
+              <div className="w-10 h-10 border-2 border-sky-900 bg-sky-800 rounded" />
               <h1>ShieldHub Dashboard</h1>
             </div>
             <nav className="flex gap-6">
               <button
-                className={`px-4 py-2 border-2 border-gray-800 ${currentScreen === "dashboard" || currentScreen === "updated-dashboard" ? "bg-gray-800 text-white" : "bg-white"}`}
+                className={`px-4 py-2 border-2 ${currentScreen === "dashboard" || currentScreen === "updated-dashboard" ? "bg-sky-800 text-white" : "bg-white text-gray-800 border-sky-600 hover:bg-sky-50"}`}
                 onClick={navigateToDashboard}
               >
                 Dashboard
               </button>
               <button
-                className={`px-4 py-2 border-2 border-gray-800 ${currentScreen === "authenticator" ? "bg-gray-800 text-white" : "bg-white"}`}
+                className={`px-4 py-2 border-2 ${currentScreen === "authenticator" ? "bg-sky-800 text-white" : "bg-white text-gray-800 border-sky-600 hover:bg-sky-50"}`}
                 onClick={navigateToAuthenticator}
               >
                 Authenticator
               </button>
-              <button className="px-4 py-2 border-2 border-gray-800 bg-white">
+              <button className="px-4 py-2 border-2 bg-white text-gray-800 border-sky-600 hover:bg-sky-50">
                 Settings
               </button>
-              <button className="px-4 py-2 border-2 border-gray-800 bg-white">
+              <button className="px-4 py-2 border-2 bg-white text-gray-800 border-sky-600 hover:bg-sky-50">
                 Help
               </button>
             </nav>
