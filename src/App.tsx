@@ -18,12 +18,22 @@ export default function App() {
     | "summary"
     | "authenticator"
   >("dashboard");
+  const [previousScreen, setPreviousScreen] = useState<
+    | "dashboard"
+    | "account-details"
+    | "fix-steps"
+    | "confirmation"
+    | "updated-dashboard"
+    | "summary"
+    | "authenticator"
+  >("dashboard");
   const [selectedAccount, setSelectedAccount] = useState<string>("");
   const [selectedAccountStatus, setSelectedAccountStatus] = useState<
     "safe" | "needs-work" | "unsafe"
   >("safe");
   const [score, setScore] = useState(72);
   const [previousScore, setPreviousScore] = useState(72);
+  const [savedStepIndex, setSavedStepIndex] = useState<number>(1);
 
   const navigateToAccountDetails = (
     accountName: string,
@@ -56,8 +66,16 @@ export default function App() {
     setCurrentScreen("summary");
   };
 
-  const navigateToAuthenticator = () => {
+  const navigateToAuthenticator = (currentStepIndex?: number) => {
+    setPreviousScreen(currentScreen);
+    if (currentStepIndex !== undefined) {
+      setSavedStepIndex(currentStepIndex);
+    }
     setCurrentScreen("authenticator");
+  };
+
+  const navigateBackFromAuthenticator = () => {
+    setCurrentScreen(previousScreen);
   };
 
   const getScreenTitle = () => {
@@ -145,8 +163,12 @@ export default function App() {
           <FixStepsScreen
             accountName={selectedAccount}
             onMarkAsDone={navigateToConfirmation}
-            onBack={() => setCurrentScreen("account-details")}
+            onBack={() => {
+              setCurrentScreen("account-details");
+              setSavedStepIndex(1);
+            }}
             onNavigateToAuthenticator={navigateToAuthenticator}
+            initialStep={savedStepIndex}
           />
         )}
         {currentScreen === "confirmation" && (
@@ -168,7 +190,10 @@ export default function App() {
           <SummaryScreen onBackToDashboard={navigateToDashboard} />
         )}
         {currentScreen === "authenticator" && (
-          <Authenticator onBack={navigateToDashboard} />
+          <Authenticator
+            onBack={navigateBackFromAuthenticator}
+            accountName={previousScreen === "fix-steps" ? selectedAccount : undefined}
+          />
         )}
       </main>
 

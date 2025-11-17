@@ -35,6 +35,8 @@ export default function App() {
   const [authenticatorAccountName, setAuthenticatorAccountName] = useState<
     string | undefined
   >(undefined);
+  const [previousScreen, setPreviousScreen] = useState<Screen>("dashboard");
+  const [savedStepIndex, setSavedStepIndex] = useState<number>(0);
 
   const selectedAccount = accounts.find((a) => a.id === selectedAccountId);
 
@@ -87,9 +89,17 @@ export default function App() {
     setCurrentScreen("summary");
   };
 
-  const handleViewAuthenticator = (accountName?: string) => {
+  const handleViewAuthenticator = (accountName?: string, stepIndex?: number) => {
+    setPreviousScreen(currentScreen);
+    if (stepIndex !== undefined) {
+      setSavedStepIndex(stepIndex);
+    }
     setAuthenticatorAccountName(accountName);
     setCurrentScreen("authenticator");
+  };
+
+  const handleBackFromAuthenticator = () => {
+    setCurrentScreen(previousScreen);
   };
 
   return (
@@ -151,10 +161,14 @@ export default function App() {
           <FixFlow
             account={selectedAccount}
             onComplete={handleFixComplete}
-            onBack={() => setCurrentScreen("account-detail")}
-            onNavigateToAuthenticator={() =>
-              handleViewAuthenticator(selectedAccount.name)
+            onBack={() => {
+              setCurrentScreen("account-detail");
+              setSavedStepIndex(0);
+            }}
+            onNavigateToAuthenticator={(stepIndex) =>
+              handleViewAuthenticator(selectedAccount.name, stepIndex)
             }
+            initialStepIndex={savedStepIndex}
           />
         )}
 
@@ -178,7 +192,7 @@ export default function App() {
 
         {currentScreen === "authenticator" && (
           <Authenticator
-            onBack={handleBackToDashboard}
+            onBack={handleBackFromAuthenticator}
             accountName={authenticatorAccountName}
             accounts={authenticatorAccountName ? undefined : accounts}
           />

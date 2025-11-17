@@ -8,7 +8,8 @@ interface FixStepsScreenProps {
   accountName: string;
   onMarkAsDone: () => void;
   onBack: () => void;
-  onNavigateToAuthenticator?: () => void;
+  onNavigateToAuthenticator?: (currentStep: number) => void;
+  initialStep?: number;
 }
 
 interface FixStep {
@@ -24,9 +25,10 @@ export function FixStepsScreen({
   onMarkAsDone,
   onBack,
   onNavigateToAuthenticator,
+  initialStep = 1,
 }: FixStepsScreenProps) {
   const account = getAccountByName(accountName);
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(initialStep);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
 
   // Generate steps based on actual issues found
@@ -154,6 +156,7 @@ export function FixStepsScreen({
     setCompletedSteps([...completedSteps, currentStep]);
     if (currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       onMarkAsDone();
     }
@@ -249,7 +252,10 @@ export function FixStepsScreen({
               <Button
                 variant="outline"
                 className="border-2 border-gray-800"
-                onClick={() => setCurrentStep(currentStep + 1)}
+                onClick={() => {
+                  setCurrentStep(currentStep + 1);
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
               >
                 Skip for Now
               </Button>
@@ -267,7 +273,7 @@ export function FixStepsScreen({
             {step.title.includes("Two-Factor") && onNavigateToAuthenticator && (
               <Button
                 className="w-full mt-4 border-2 border-gray-800 bg-white hover:bg-gray-100"
-                onClick={onNavigateToAuthenticator}
+                onClick={() => onNavigateToAuthenticator(currentStep)}
               >
                 View Authenticator
               </Button>

@@ -9,7 +9,8 @@ interface FixFlowProps {
   account: Account;
   onComplete: (completedStepIds: string[]) => void;
   onBack: () => void;
-  onNavigateToAuthenticator?: () => void;
+  onNavigateToAuthenticator?: (currentStepIndex: number) => void;
+  initialStepIndex?: number;
 }
 
 export default function FixFlow({
@@ -17,6 +18,7 @@ export default function FixFlow({
   onComplete,
   onBack,
   onNavigateToAuthenticator,
+  initialStepIndex = 0,
 }: FixFlowProps) {
   const generateFixSteps = (): FixStep[] => {
     const steps: FixStep[] = [];
@@ -128,7 +130,7 @@ export default function FixFlow({
   };
 
   const [steps, setSteps] = useState<FixStep[]>(generateFixSteps());
-  const [currentStepIndex, setCurrentStepIndex] = useState(0);
+  const [currentStepIndex, setCurrentStepIndex] = useState(initialStepIndex);
   const [testPassword, setTestPassword] = useState("");
 
   const currentStep = steps[currentStepIndex];
@@ -142,6 +144,7 @@ export default function FixFlow({
 
     if (currentStepIndex < steps.length - 1) {
       setCurrentStepIndex(currentStepIndex + 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       // Pass IDs of completed steps only - split comma-separated IDs
       const completedStepIds = updatedSteps
@@ -154,6 +157,7 @@ export default function FixFlow({
   const handleSkipStep = () => {
     if (currentStepIndex < steps.length - 1) {
       setCurrentStepIndex(currentStepIndex + 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -260,7 +264,7 @@ export default function FixFlow({
                     </div>
                     <Button
                       className="border-2 border-gray-800 bg-gray-800 text-white hover:bg-gray-700"
-                      onClick={onNavigateToAuthenticator}
+                      onClick={() => onNavigateToAuthenticator(currentStepIndex)}
                     >
                       View Authenticator
                     </Button>
@@ -362,7 +366,7 @@ export default function FixFlow({
               onNavigateToAuthenticator && (
                 <Button
                   className="w-full mt-4 border-2 border-gray-800 bg-white hover:bg-gray-100 text-black"
-                  onClick={onNavigateToAuthenticator}
+                  onClick={() => onNavigateToAuthenticator(currentStepIndex)}
                 >
                   View Authenticator
                 </Button>
