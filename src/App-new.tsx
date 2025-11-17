@@ -95,13 +95,13 @@ export default function App() {
   return (
     <div className="min-h-screen bg-sky-600 border-b-4 border-sky-900 text-white">
       {/* Header */}
-      <header className="bg-sky-600 border-b-2 border-sky-900">
+      <header className="bg-white border-b-2 border-gray-800">
         <div className="max-w-7xl mx-auto px-8 py-6">
           <div className="flex items-center justify-between">
             <h1 className="text-2xl font-bold">ShieldHub</h1>
             <nav className="flex gap-4">
               <button
-                className={`px-4 py-2 border-2 border-sky-900 transition ${
+                className={`px-4 py-2 border-2 border-gray-800 transition ${
                   currentScreen === "dashboard"
                     ? "bg-sky-800 text-white border-sky-900"
                     : "bg-white border-sky-600 hover:bg-sky-50"
