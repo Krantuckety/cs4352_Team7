@@ -103,7 +103,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-200">
+    <div className="min-h-screen bg-gray-300">
       {/* Header */}
       <header className="bg-gray-800 border-b-2 border-gray-800">
         <div className="max-w-7xl mx-auto px-8 py-6">
