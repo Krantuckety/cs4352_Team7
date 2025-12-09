@@ -127,7 +127,7 @@ export default function Dashboard({
           </h3>
           <Button
             onClick={onViewSummary}
-            className="bg-primary text-white hover:bg-primary"
+            className="bg-sky-400 text-white hover:bg-sky-600"
           >
             View Report
           </Button>

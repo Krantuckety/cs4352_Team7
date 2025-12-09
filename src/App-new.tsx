@@ -132,7 +132,7 @@ export default function App() {
               >
                 Authenticator
               </button>
-              <button className="px-4 py-2 border-2 border-gray-800 bg-white hover:bg-gray-100 transition">
+              <button className="px-4 py-2 border-2 border-gray-800 bg-sky-400 hover:bg-sky-600 text-white transition rounded-lg">
                 Settings
               </button>
             </nav>
