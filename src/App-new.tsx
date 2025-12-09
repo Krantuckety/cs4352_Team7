@@ -116,7 +116,7 @@ export default function App() {
                 className={`px-4 py-2 border-2 border-gray-800 transition ${
                   currentScreen === "dashboard"
                     ? "bg-red-800 text-white"
-                    : "bg-white hover:bg-gray-100"
+                    : "bg-red-500 hover:bg-red-600 text-white"
                 }`}
                 onClick={handleBackToDashboard}
               >
