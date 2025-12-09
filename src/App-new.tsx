@@ -108,7 +108,9 @@ export default function App() {
       <header className="bg-white border-b-2 border-gray-800">
         <div className="max-w-7xl mx-auto px-8 py-6">
           <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-bold">ShieldHub</h1>
+            <h1 className="text-4xl font-extrabold tracking-wide" style={{ fontFamily: "Montserrat, sans-serif" }}>
+              SHIELDHUB
+            </h1>
             <nav className="flex gap-4">
               <button
                 className={`px-4 py-2 border-2 border-gray-800 transition ${
