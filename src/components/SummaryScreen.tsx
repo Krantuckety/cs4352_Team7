@@ -176,7 +176,7 @@ export function SummaryScreen({ onBackToDashboard }: SummaryScreenProps) {
               {unsafeAccounts.length === 0 && (
                 <div>
                   <div className="flex items-center gap-2 mb-2">
-                    <div className="w-5 h-5 border-2 border-gray-800 bg-green-500 rounded" />
+                    <div className="w-5 h-5 border-2 border-gray-800 bg-green-700 rounded" />
                     <span className="text-sm">All accounts secured!</span>
                   </div>
                   <p className="text-sm text-gray-600 ml-7">Excellent work</p>

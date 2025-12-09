@@ -22,11 +22,11 @@ export function AccountDetailsScreen({
   const getSeverityColor = (severity: string) => {
     if (severity === "high") return "bg-red-500";
     if (severity === "medium") return "bg-yellow-500";
-    return "bg-green-500";
+    return "bg-green-700";
   };
 
   const getStatusColor = () => {
-    if (accountStatus === "safe") return "bg-green-500";
+    if (accountStatus === "safe") return "bg-green-700";
     if (accountStatus === "needs-work") return "bg-yellow-500";
     return "bg-red-500";
   };
