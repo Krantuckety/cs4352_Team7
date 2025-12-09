@@ -17,9 +17,9 @@ export default function Dashboard({
   onViewSummary,
 }: DashboardProps) {
   const getRiskColor = (risk: string) => {
-    if (risk === "safe") return "bg-safe";
-    if (risk === "moderate") return "bg-warning";
-    return "bg-danger";
+    if (risk === "safe") return "bg-green-700";
+    if (risk === "moderate") return "bg-yellow-500";
+    return "bg-red-500";
   };
 
   const getRiskLabel = (risk: string) => {
@@ -29,9 +29,15 @@ export default function Dashboard({
   };
 
   const getScoreColor = () => {
-    if (securityScore >= 80) return "bg-safe";
-    if (securityScore >= 60) return "bg-warning";
-    return "bg-danger";
+    if (securityScore >= 97) return "bg-green-700"
+    if (securityScore >= 93) return "bg-green-600"
+    if (securityScore >= 90) return "bg-green-500";
+    if (securityScore >= 87) return "bg-green-400";
+    if (securityScore >= 83) return "bg-lime-400";
+    if (securityScore >= 80) return "bg-lime-300";
+    if (securityScore >= 75) return "bg-yellow-400";
+    if (securityScore >= 70) return "bg-yellow-500";
+    return "bg-red-500";
   };
 
   const safeCount = accounts.filter((a) => a.riskLevel === "safe").length;
@@ -121,7 +127,7 @@ export default function Dashboard({
           </h3>
           <Button
             onClick={onViewSummary}
-            className="bg-primary text-white hover:bg-primary"
+            className="bg-sky-400 text-white hover:bg-sky-600"
           >
             View Report
           </Button>

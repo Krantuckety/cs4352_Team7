@@ -186,8 +186,8 @@ export default function ImprovementSummary({
 
       {/* All Secure Message */}
       {accountsNeedingWork.length === 0 && (
-        <Card className="border-2 border-green-500 bg-green-50 p-8 text-center mb-8 rounded-xl">
-          <div className="w-20 h-20 rounded-full border-2 border-gray-800 bg-green-500 mx-auto mb-4 flex items-center justify-center">
+        <Card className="border-2 border-green-700 bg-green-50 p-8 text-center mb-8 rounded-xl">
+          <div className="w-20 h-20 rounded-full border-2 border-gray-800 bg-green-700 mx-auto mb-4 flex items-center justify-center">
             <span className="text-4xl text-white">✓</span>
           </div>
           <h3 className="text-2xl font-bold mb-2">All Accounts Secured!</h3>
