@@ -299,9 +299,8 @@ export default function FixFlow({
           {/* Action Buttons */}
           <div className="flex gap-4">
             <Button
-              className="flex-1 border-2 border-gray-800 bg-gray-800 text-white hover:bg-gray-700 py-6 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 border-2 border-gray-800 bg-gray-800 text-white hover:bg-gray-700 py-6 text-lg"
               onClick={handleMarkComplete}
-              disabled={currentStepIndex === steps.length - 1 && completedCount < steps.length}
             >
               {currentStepIndex < steps.length - 1 ? (
                 <>
