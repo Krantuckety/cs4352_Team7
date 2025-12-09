@@ -3,8 +3,8 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 
 export default defineConfig({
-  //  Base path for GitHub Pages
-  base: "/cs4352_Team7/",
+  //  Base path - use root for Netlify, GitHub Pages path otherwise
+  base: process.env.NETLIFY ? "/" : "/cs4352_Team7/",
 
   //  React plugin
   plugins: [react()],
