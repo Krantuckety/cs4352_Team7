@@ -103,7 +103,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-sky">
+    <div className="min-h-screen bg-sky-700">
       {/* Header */}
       <header className="bg-sky-700 border-b-2 border-gray-800">
         <div className="max-w-7xl mx-auto px-8 py-6">
