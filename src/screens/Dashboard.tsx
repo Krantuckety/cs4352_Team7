@@ -1,7 +1,8 @@
 import { Account } from "../types";
 import { Card } from "../components/ui/card";
 import { Button } from "../components/ui/button";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
+import { useState } from "react";
 
 interface DashboardProps {
   accounts: Account[];
@@ -16,6 +17,8 @@ export default function Dashboard({
   onAccountClick,
   onViewSummary,
 }: DashboardProps) {
+  const [showSafeAccounts, setShowSafeAccounts] = useState(false);
+
   const getRiskColor = (risk: string) => {
     if (risk === "safe") return "bg-green-700";
     if (risk === "moderate") return "bg-yellow-500";
@@ -133,62 +136,206 @@ export default function Dashboard({
           </Button>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
-          {accounts.map((account) => (
-            <Card
-              key={account.id}
-              className="border-2 border-gray-800 p-5 cursor-pointer hover:shadow-lg transition"
-              onClick={() => onAccountClick(account.id)}
-            >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div
-                    className={`w-12 h-12 ${getRiskColor(account.riskLevel)} rounded-lg`}
-                  />
-                  <div>
-                    <div className="font-bold mb-1 flex items-center gap-2">
-                      <span>{account.name}</span>
-                      {account.websiteUrl && (
-                        <a
-                          href={account.websiteUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-gray-600 hover:text-gray-800"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <ExternalLink className="w-4 h-4" />
-                        </a>
-                      )}
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div
-                        className={`w-3 h-3 rounded-full ${getRiskColor(account.riskLevel)}`}
-                      />
-                      <span className="text-sm">
-                        {getRiskLabel(account.riskLevel)}
-                      </span>
-                    </div>
-                    {account.issues.filter((i) => !i.fixed).length > 0 && (
-                      <div className="mt-1 text-sm text-gray-600">
-                        {account.issues.filter((i) => !i.fixed).length} issue
-                        {account.issues.filter((i) => !i.fixed).length !== 1
-                          ? "s"
-                          : ""}
-                      </div>
-                    )}
-                  </div>
-                </div>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="border-2 border-gray-800"
+        {/* Show alert accounts first */}
+        {alertAccounts.length > 0 && (
+          <div className="mb-6">
+            <h4 className="text-lg font-bold mb-3 text-danger">
+              Accounts Needing Attention ({alertAccounts.length})
+            </h4>
+            <div className="grid grid-cols-2 gap-4">
+              {alertAccounts.map((account) => (
+                <Card
+                  key={account.id}
+                  className="border-2 border-gray-800 p-5 cursor-pointer hover:shadow-lg transition"
+                  onClick={() => onAccountClick(account.id)}
                 >
-                  View
-                </Button>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div
+                        className={`w-12 h-12 ${getRiskColor(account.riskLevel)} rounded-lg`}
+                      />
+                      <div>
+                        <div className="font-bold mb-1 flex items-center gap-2">
+                          <span>{account.name}</span>
+                          {account.websiteUrl && (
+                            <a
+                              href={account.websiteUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-gray-600 hover:text-gray-800"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <ExternalLink className="w-4 h-4" />
+                            </a>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div
+                            className={`w-3 h-3 rounded-full ${getRiskColor(account.riskLevel)}`}
+                          />
+                          <span className="text-sm">
+                            {getRiskLabel(account.riskLevel)}
+                          </span>
+                        </div>
+                        {account.issues.filter((i) => !i.fixed).length > 0 && (
+                          <div className="mt-1 text-sm text-gray-600">
+                            {account.issues.filter((i) => !i.fixed).length} issue
+                            {account.issues.filter((i) => !i.fixed).length !== 1
+                              ? "s"
+                              : ""}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="border-2 border-gray-800"
+                    >
+                      View
+                    </Button>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Collapsible safe accounts section when all issues are resolved */}
+        {safeCount > 0 && alertAccounts.length === 0 && (
+          <div>
+            <button
+              onClick={() => setShowSafeAccounts(!showSafeAccounts)}
+              className="w-full mb-3 p-4 border-2 border-green-700 bg-green-50 hover:bg-green-100 transition flex items-center justify-between"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-green-700 text-white flex items-center justify-center font-bold">
+                  ✓
+                </div>
+                <div className="text-left">
+                  <h4 className="font-bold text-lg">
+                    All {safeCount} Account{safeCount !== 1 ? 's' : ''} Secured
+                  </h4>
+                  <p className="text-sm text-gray-600">
+                    Great job! All your accounts are safe.
+                  </p>
+                </div>
               </div>
-            </Card>
-          ))}
-        </div>
+              {showSafeAccounts ? (
+                <ChevronUp className="w-6 h-6" />
+              ) : (
+                <ChevronDown className="w-6 h-6" />
+              )}
+            </button>
+            {showSafeAccounts && (
+              <div className="grid grid-cols-2 gap-4">
+                {accounts.map((account) => (
+                  <Card
+                    key={account.id}
+                    className="border-2 border-gray-800 p-5 cursor-pointer hover:shadow-lg transition"
+                    onClick={() => onAccountClick(account.id)}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-4">
+                        <div
+                          className={`w-12 h-12 ${getRiskColor(account.riskLevel)} rounded-lg`}
+                        />
+                        <div>
+                          <div className="font-bold mb-1 flex items-center gap-2">
+                            <span>{account.name}</span>
+                            {account.websiteUrl && (
+                              <a
+                                href={account.websiteUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-gray-600 hover:text-gray-800"
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                <ExternalLink className="w-4 h-4" />
+                              </a>
+                            )}
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <div
+                              className={`w-3 h-3 rounded-full ${getRiskColor(account.riskLevel)}`}
+                            />
+                            <span className="text-sm">
+                              {getRiskLabel(account.riskLevel)}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="border-2 border-gray-800"
+                      >
+                        View
+                      </Button>
+                    </div>
+                  </Card>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Show all accounts normally when there are issues */}
+        {alertAccounts.length > 0 && safeCount > 0 && (
+          <div>
+            <h4 className="text-lg font-bold mb-3 text-safe">
+              Secure Accounts ({safeCount})
+            </h4>
+            <div className="grid grid-cols-2 gap-4">
+              {accounts.filter((a) => a.riskLevel === "safe").map((account) => (
+                <Card
+                  key={account.id}
+                  className="border-2 border-gray-800 p-5 cursor-pointer hover:shadow-lg transition"
+                  onClick={() => onAccountClick(account.id)}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div
+                        className={`w-12 h-12 ${getRiskColor(account.riskLevel)} rounded-lg`}
+                      />
+                      <div>
+                        <div className="font-bold mb-1 flex items-center gap-2">
+                          <span>{account.name}</span>
+                          {account.websiteUrl && (
+                            <a
+                              href={account.websiteUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-gray-600 hover:text-gray-800"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <ExternalLink className="w-4 h-4" />
+                            </a>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div
+                            className={`w-3 h-3 rounded-full ${getRiskColor(account.riskLevel)}`}
+                          />
+                          <span className="text-sm">
+                            {getRiskLabel(account.riskLevel)}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="border-2 border-gray-800"
+                    >
+                      View
+                    </Button>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

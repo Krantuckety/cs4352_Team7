@@ -71,10 +71,28 @@ export default function ImprovementSummary({
 
   return (
     <div>
-      <Button variant="ghost" size="sm" className="mb-6 -ml-2" onClick={onBack}>
-        <ArrowLeft className="w-4 h-4 mr-2" />
-        Back to Dashboard
-      </Button>
+      <div className="mb-6">
+        <div className="flex items-center justify-between">
+          <Button variant="ghost" size="sm" className="-ml-2" onClick={onBack}>
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to Dashboard
+          </Button>
+          <div className="flex gap-3">
+            <Button
+              variant="outline"
+              className="border-2 border-gray-800"
+            >
+              Download Report
+            </Button>
+            <Button
+              variant="outline"
+              className="border-2 border-gray-800"
+            >
+              Share Summary
+            </Button>
+          </div>
+        </div>
+      </div>
 
       <div className="mb-8">
         <h2 className="text-3xl font-bold mb-2">Security Report</h2>
@@ -216,27 +234,7 @@ export default function ImprovementSummary({
         </div>
       </div>
 
-      {/* Action Buttons */}
-      <div className="flex gap-4 justify-center">
-        <Button
-          className="px-8 py-4 border-2 border-gray-800 bg-gray-800 text-white hover:bg-gray-700"
-          onClick={onBack}
-        >
-          Back to Dashboard
-        </Button>
-        <Button
-          variant="outline"
-          className="px-8 py-4 border-2 border-gray-800"
-        >
-          Download Report
-        </Button>
-        <Button
-          variant="outline"
-          className="px-8 py-4 border-2 border-gray-800"
-        >
-          Share Summary
-        </Button>
-      </div>
+
     </div>
   );
 }
