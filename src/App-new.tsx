@@ -103,7 +103,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-sky-600">
+    <div className="min-h-screen bg-red">
       {/* Header */}
       <header className="bg-red border-b-2 border-gray-800">
         <div className="max-w-7xl mx-auto px-8 py-6">
@@ -115,7 +115,7 @@ export default function App() {
               <button
                 className={`px-4 py-2 border-2 border-gray-800 transition ${
                   currentScreen === "dashboard"
-                    ? "bg-gray-800 text-white"
+                    ? "bg-red-800 text-white"
                     : "bg-white hover:bg-gray-100"
                 }`}
                 onClick={handleBackToDashboard}
