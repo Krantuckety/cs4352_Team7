@@ -105,7 +105,7 @@ export default function App() {
   return (
     <div
       className="min-h-screen bg-cover bg-fixed"
-      style={{ backgroundImage: "url('/background.png')" }}
+      style={{ backgroundImage: "url('/cs4352_Team7/background.png')" }}
     >
       {/* Header */}
       <header className="bg-sky-700 border-b-2 border-gray-800">
