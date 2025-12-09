@@ -189,7 +189,7 @@ export default function FixFlow({
                   index === currentStepIndex
                     ? "border-gray-800 bg-gray-100"
                     : step.completed
-                      ? "border-green-500 bg-green-50"
+                      ? "border-green-700 bg-green-50"
                       : "border-gray-300"
                 }`}
                 onClick={() => setCurrentStepIndex(index)}
@@ -197,7 +197,7 @@ export default function FixFlow({
                 <div className="flex items-center gap-3 mb-2">
                   <div
                     className={`w-7 h-7 rounded-full border-2 border-gray-800 flex items-center justify-center font-bold ${
-                      step.completed ? "bg-green-500 text-white" : ""
+                      step.completed ? "bg-green-700 text-white" : ""
                     }`}
                   >
                     {step.completed ? <Check className="w-4 h-4" /> : index + 1}
