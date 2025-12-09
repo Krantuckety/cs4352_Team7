@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Account } from "./types";
 import {
   initialAccounts,
@@ -39,6 +39,12 @@ export default function App() {
   const [savedStepIndex, setSavedStepIndex] = useState<number>(0);
 
   const selectedAccount = accounts.find((a) => a.id === selectedAccountId);
+
+  useEffect(() => {
+    if (currentScreen === "completion") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [currentScreen]);
 
   const handleAccountClick = (accountId: string) => {
     setSelectedAccountId(accountId);

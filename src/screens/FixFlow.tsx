@@ -22,38 +22,44 @@ export default function FixFlow({
 }: FixFlowProps) {
   const generateFixSteps = (): FixStep[] => {
     const steps: FixStep[] = [];
+    const processedIssues = new Set<string>();
 
+    // Consolidate all password-related issues into one step
+    const passwordIssues = account.issues.filter(
+      (issue) =>
+        !issue.fixed &&
+        (issue.title.toLowerCase().includes("password") ||
+          issue.title.toLowerCase().includes("weak") ||
+          issue.title.toLowerCase().includes("reused"))
+    );
+
+    if (passwordIssues.length > 0) {
+      const issueIds = passwordIssues.map((i) => i.id).join(",");
+      const hasReused = passwordIssues.some((i) =>
+        i.title.toLowerCase().includes("reused")
+      );
+
+      steps.push({
+        id: issueIds,
+        title: "Update Your Password",
+        description: hasReused
+          ? "Create a unique, strong password that is not used on any other account"
+          : "Create a strong password that meets security requirements",
+        instructions: [
+          `Navigate to Password Settings||Go to ${account.name} settings||Find "Security & Password" section||Select "Change Password"`,
+          "Create a Strong Password||Use at least 12 characters||Include uppercase (A-Z), lowercase (a-z), numbers (0-9), and symbols (!@#$%^&*)||Make sure it's unique and not used on other accounts",
+          "Save Securely||Save the new password in a password manager||Confirm the password change||Test login with new password",
+        ],
+        estimatedTime: "5 minutes",
+        completed: false,
+      });
+
+      passwordIssues.forEach((i) => processedIssues.add(i.id));
+    }
+
+    // Add 2FA step if needed
     account.issues.forEach((issue) => {
-      if (issue.fixed) return;
-
-      if (issue.title.toLowerCase().includes("reused password")) {
-        // When fixing reused password, also include weak password issue ID if it exists
-        const weakPasswordIssue = account.issues.find(
-          (i) => !i.fixed && i.title.toLowerCase().includes("weak password"),
-        );
-        const issueIds = weakPasswordIssue
-          ? `${issue.id},${weakPasswordIssue.id}`
-          : issue.id;
-
-        steps.push({
-          id: issueIds,
-          title: "Fix Reused Password",
-          description:
-            "Create a unique password that is not used on any other account",
-          instructions: [
-            `Go to ${account.name} settings`,
-            'Navigate to "Security & Password"',
-            'Select "Change Password"',
-            "Create a completely unique password (not used elsewhere)",
-            "Use a password manager to generate a strong password",
-            "Ensure it has at least 12 characters",
-            "Include uppercase, lowercase, numbers, and symbols",
-            "Save the new password securely",
-          ],
-          estimatedTime: "5 minutes",
-          completed: false,
-        });
-      }
+      if (issue.fixed || processedIssues.has(issue.id)) return;
 
       if (
         issue.title.toLowerCase().includes("no 2fa") ||
@@ -64,65 +70,14 @@ export default function FixFlow({
           title: "Enable Two-Factor Authentication",
           description: "Add an extra layer of security to your account",
           instructions: [
-            `Go to ${account.name} security settings`,
-            'Find "Two-Factor Authentication" or "2FA" section',
-            'Click "Enable 2FA" or "Turn On"',
-            "Choose your preferred method (Authenticator App recommended)",
-            "Follow the on-screen setup instructions",
-            "Scan the QR code with your authenticator app",
-            "Enter the verification code to confirm",
-            "Save backup codes in a secure location",
+            `Navigate to Security Settings||Go to ${account.name} security settings||Find "Two-Factor Authentication" or "2FA" section||Click "Enable 2FA" or "Turn On"`,
+            "Set Up Authenticator App||Choose Authenticator App as your preferred method||Scan the QR code with your authenticator app (like Google Authenticator)||Enter the verification code to confirm setup",
+            "Save Backup Codes||Download or write down the backup codes||Store them in a secure location||You'll need these if you lose access to your phone",
           ],
           estimatedTime: "8 minutes",
           completed: false,
         });
-      }
-
-      if (
-        issue.title.toLowerCase().includes("weak password") &&
-        !steps.find((s) => s.title.includes("Reused"))
-      ) {
-        steps.push({
-          id: issue.id,
-          title: "Strengthen Your Password",
-          description:
-            "Create a stronger password that meets security requirements",
-          instructions: [
-            `Go to ${account.name} settings`,
-            'Click on "Security & Password"',
-            'Select "Change Password"',
-            "Create a strong password with at least 12 characters",
-            "Include uppercase letters (A-Z)",
-            "Include lowercase letters (a-z)",
-            "Include numbers (0-9)",
-            "Include special symbols (!@#$%^&*)",
-            "Avoid common words or personal information",
-            "Save changes and test login with new password",
-          ],
-          estimatedTime: "5 minutes",
-          completed: false,
-        });
-      }
-
-      if (issue.title.toLowerCase().includes("last password update")) {
-        steps.push({
-          id: issue.id,
-          title: "Update Old Password",
-          description:
-            "Replace your outdated password with a fresh, secure one",
-          instructions: [
-            `Go to ${account.name} settings`,
-            'Navigate to "Security & Password"',
-            'Select "Change Password"',
-            "Create a new strong password (min. 12 characters)",
-            "Make sure it's different from your old password",
-            "Include a mix of characters, numbers, and symbols",
-            "Save the new password in a password manager",
-            "Set a reminder to update it again in 6 months",
-          ],
-          estimatedTime: "5 minutes",
-          completed: false,
-        });
+        processedIssues.add(issue.id);
       }
     });
 
@@ -272,19 +227,37 @@ export default function FixFlow({
                 </div>
               )}
 
-            <div className="space-y-4">
+            <div className="space-y-6">
               <h3 className="font-bold text-lg mb-4">Follow these steps:</h3>
-              {currentStep.instructions.map((instruction, index) => (
-                <div
-                  key={index}
-                  className="flex gap-4 p-4 border-2 border-gray-800 bg-gray-50"
-                >
-                  <div className="w-8 h-8 rounded-full border-2 border-gray-800 bg-white flex-shrink-0 flex items-center justify-center font-bold">
-                    {index + 1}
+              {currentStep.instructions.map((instruction, index) => {
+                const parts = instruction.split("||");
+                const stepTitle = parts[0];
+                const stepDetails = parts.slice(1);
+
+                return (
+                  <div key={index}>
+                    <div className="border-2 border-gray-800 bg-gray-50 p-5">
+                      <div className="flex gap-3 mb-4">
+                        <div className="w-8 h-8 rounded-full border-2 border-gray-800 bg-white flex-shrink-0 flex items-center justify-center font-bold text-base">
+                          {index + 1}
+                        </div>
+                        <h4 className="font-bold text-lg pt-0.5 text-gray-900">{stepTitle}</h4>
+                      </div>
+                      <ul className="ml-11 space-y-2.5">
+                        {stepDetails.map((detail, idx) => (
+                          <li key={idx} className="text-gray-600 flex gap-2 text-sm">
+                            <span className="text-gray-400 font-bold">•</span>
+                            <span className="leading-relaxed">{detail}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    {index < currentStep.instructions.length - 1 && (
+                      <div className="h-4" />
+                    )}
                   </div>
-                  <div className="pt-1 font-medium">{instruction}</div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             {/* Password Strength Tester */}
