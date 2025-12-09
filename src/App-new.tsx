@@ -105,7 +105,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-gray-800">
       {/* Header */}
-      <header className="bg-white-100 border-b-2 border-gray-800">
+      <header className="bg-white border-b-2 border-gray-800">
         <div className="max-w-7xl mx-auto px-8 py-6">
           <div className="flex items-center justify-between">
             <h1 className="text-4xl font-extrabold tracking-wide text-white" style={{ fontFamily: "Montserrat, sans-serif" }}>
