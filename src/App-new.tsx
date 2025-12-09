@@ -103,9 +103,9 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-300">
+    <div className="min-h-screen bg-gray-200">
       {/* Header */}
-      <header className="bg-gray-800 border-b-2 border-gray-800">
+      <header className="bg-sky-700 border-b-2 border-gray-800">
         <div className="max-w-7xl mx-auto px-8 py-6">
           <div className="flex items-center justify-between">
             <h1 className="text-4xl font-extrabold tracking-wide text-white" style={{ fontFamily: "Montserrat, sans-serif" }}>
@@ -116,7 +116,7 @@ export default function App() {
                 className={`px-4 py-2 border-2 border-gray-800 transition ${
                   currentScreen === "dashboard"
                     ? "bg-sky-700 text-white"
-                    : "bg-sky-500 hover:bg-sky-600 text-white"
+                    : "bg-sky-400 hover:bg-sky-600 text-white"
                 }`}
                 onClick={handleBackToDashboard}
               >
@@ -125,8 +125,8 @@ export default function App() {
               <button
                 className={`px-4 py-2 border-2 border-gray-800 transition ${
                   currentScreen === "authenticator"
-                    ? "bg-gray-800 text-white"
-                    : "bg-white hover:bg-gray-100"
+                    ? "bg-sky-700 text-white"
+                    : "bg-sky-400 hover:bg-sky-600 text-white"
                 }`}
                 onClick={() => handleViewAuthenticator()}
               >
