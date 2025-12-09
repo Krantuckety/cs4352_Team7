@@ -25,7 +25,7 @@ export default function CompletionScreen({
     <div className="max-w-4xl mx-auto">
       {/* Success Animation */}
       <div className="text-center mb-12">
-        <div className="w-32 h-32 rounded-full border-4 border-gray-800 bg-green-500 mx-auto mb-6 flex items-center justify-center animate-bounce">
+        <div className="w-32 h-32 rounded-full border-4 border-gray-800 bg-green-700 mx-auto mb-6 flex items-center justify-center animate-bounce">
           <Check className="w-16 h-16 text-white" strokeWidth={4} />
         </div>
         <h1 className="text-4xl font-bold mb-4">
@@ -65,7 +65,7 @@ export default function CompletionScreen({
             <div className="text-5xl font-bold text-gray-400">→</div>
 
             <div className="text-center">
-              <div className="p-6 border-2 border-gray-800 bg-green-500 text-white mb-3">
+              <div className="p-6 border-2 border-gray-800 bg-green-700 text-white mb-3">
                 <div className="text-sm mb-2">Current Score</div>
                 <div className="text-6xl font-bold">{newScore}</div>
               </div>
@@ -91,7 +91,7 @@ export default function CompletionScreen({
                 key={issue.id}
                 className="flex items-start gap-4 p-4 border-2 border-gray-800 bg-green-50"
               >
-                <div className="w-10 h-10 border-2 border-gray-800 bg-green-500 text-white flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 border-2 border-gray-800 bg-green-700 text-white flex items-center justify-center flex-shrink-0">
                   <Check className="w-6 h-6" />
                 </div>
                 <div>
