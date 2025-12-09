@@ -20,20 +20,28 @@ export function DashboardScreen({
   const accounts = accountsData;
 
   const getStatusColor = (status: string) => {
-    if (status === "safe") return "bg-green-500";
+    if (status === "safe") return "bg-green-700";
     if (status === "needs-work") return "bg-yellow-500";
     return "bg-red-500";
   };
 
   const getScoreColor = (score: number) => {
-    if (score >= 80) return "bg-green-500";
-    if (score >= 60) return "bg-yellow-500";
+    if (score >= 97) return "bg-green-700"
+    if (score >= 93) return "bg-green-600"
+    if (score >= 90) return "bg-green-500";
+    if (score >= 87) return "bg-green-400";
+    if (score >= 83) return "bg-lime-400";
+    if (score >= 80) return "bg-lime-300";
+    if (score >= 75) return "bg-yellow-400";
+    if (score >= 70) return "bg-yellow-500";
     return "bg-red-500";
   };
 
   const getScoreMessage = (score: number) => {
-    if (score >= 80) return "Great security - Keep it up!";
-    if (score >= 60) return "Your security score needs improvement";
+    if (score >= 97) return "Phenomenal security - Outstanding work, keep it up!";
+    if (score >= 90) return "Great security - Keep it up!";
+    if (score >= 83) return "Good security - Some improvements needed";
+    if (score >= 75) return "Weak security - Address vulnerabilities soon!";
     return "Critical - Immediate action required";
   };
 
