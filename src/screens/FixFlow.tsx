@@ -30,13 +30,13 @@ export default function FixFlow({
         !issue.fixed &&
         (issue.title.toLowerCase().includes("password") ||
           issue.title.toLowerCase().includes("weak") ||
-          issue.title.toLowerCase().includes("reused"))
+          issue.title.toLowerCase().includes("reused")),
     );
 
     if (passwordIssues.length > 0) {
       const issueIds = passwordIssues.map((i) => i.id).join(",");
       const hasReused = passwordIssues.some((i) =>
-        i.title.toLowerCase().includes("reused")
+        i.title.toLowerCase().includes("reused"),
       );
 
       steps.push({
@@ -99,7 +99,7 @@ export default function FixFlow({
 
     if (currentStepIndex < steps.length - 1) {
       setCurrentStepIndex(currentStepIndex + 1);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
       // Pass IDs of completed steps only - split comma-separated IDs
       const completedStepIds = updatedSteps
@@ -112,7 +112,7 @@ export default function FixFlow({
   const handleSkipStep = () => {
     if (currentStepIndex < steps.length - 1) {
       setCurrentStepIndex(currentStepIndex + 1);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
@@ -219,7 +219,9 @@ export default function FixFlow({
                     </div>
                     <Button
                       className="border-2 border-gray-800 bg-gray-800 text-white hover:bg-gray-700"
-                      onClick={() => onNavigateToAuthenticator(currentStepIndex)}
+                      onClick={() =>
+                        onNavigateToAuthenticator(currentStepIndex)
+                      }
                     >
                       View Authenticator
                     </Button>
@@ -241,11 +243,16 @@ export default function FixFlow({
                         <div className="w-8 h-8 rounded-full border-2 border-gray-800 bg-white flex-shrink-0 flex items-center justify-center font-bold text-base">
                           {index + 1}
                         </div>
-                        <h4 className="font-bold text-lg pt-0.5 text-gray-900">{stepTitle}</h4>
+                        <h4 className="font-bold text-lg pt-0.5 text-gray-900">
+                          {stepTitle}
+                        </h4>
                       </div>
                       <ul className="ml-11 space-y-2.5">
                         {stepDetails.map((detail, idx) => (
-                          <li key={idx} className="text-gray-600 flex gap-2 text-sm">
+                          <li
+                            key={idx}
+                            className="text-gray-600 flex gap-2 text-sm"
+                          >
                             <span className="text-gray-400 font-bold">•</span>
                             <span className="leading-relaxed">{detail}</span>
                           </li>

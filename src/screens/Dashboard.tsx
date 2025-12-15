@@ -32,8 +32,8 @@ export default function Dashboard({
   };
 
   const getScoreColor = () => {
-    if (securityScore >= 97) return "bg-green-700"
-    if (securityScore >= 93) return "bg-green-600"
+    if (securityScore >= 97) return "bg-green-700";
+    if (securityScore >= 93) return "bg-green-600";
     if (securityScore >= 90) return "bg-green-500";
     if (securityScore >= 87) return "bg-green-400";
     if (securityScore >= 83) return "bg-lime-400";
@@ -68,8 +68,9 @@ export default function Dashboard({
               <h3 className="font-bold mb-1">Action Required</h3>
               <p>
                 {alertAccounts.length} account
-                {alertAccounts.length !== 1 ? "s need" : " needs"} your immediate attention.{" "}
-                {totalIssues} security issue{totalIssues !== 1 ? "s" : ""} detected.
+                {alertAccounts.length !== 1 ? "s need" : " needs"} your
+                immediate attention. {totalIssues} security issue
+                {totalIssues !== 1 ? "s" : ""} detected.
               </p>
             </div>
           </div>
@@ -179,7 +180,8 @@ export default function Dashboard({
                         </div>
                         {account.issues.filter((i) => !i.fixed).length > 0 && (
                           <div className="mt-1 text-sm text-gray-600">
-                            {account.issues.filter((i) => !i.fixed).length} issue
+                            {account.issues.filter((i) => !i.fixed).length}{" "}
+                            issue
                             {account.issues.filter((i) => !i.fixed).length !== 1
                               ? "s"
                               : ""}
@@ -214,7 +216,7 @@ export default function Dashboard({
                 </div>
                 <div className="text-left">
                   <h4 className="font-bold text-lg">
-                    All {safeCount} Account{safeCount !== 1 ? 's' : ''} Secured
+                    All {safeCount} Account{safeCount !== 1 ? "s" : ""} Secured
                   </h4>
                   <p className="text-sm text-gray-600">
                     Great job! All your accounts are safe.
@@ -287,52 +289,54 @@ export default function Dashboard({
               Secure Accounts ({safeCount})
             </h4>
             <div className="grid grid-cols-2 gap-4">
-              {accounts.filter((a) => a.riskLevel === "safe").map((account) => (
-                <Card
-                  key={account.id}
-                  className="border-2 border-gray-800 p-5 cursor-pointer hover:shadow-lg transition"
-                  onClick={() => onAccountClick(account.id)}
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <div
-                        className={`w-12 h-12 ${getRiskColor(account.riskLevel)} rounded-lg`}
-                      />
-                      <div>
-                        <div className="font-bold mb-1 flex items-center gap-2">
-                          <span>{account.name}</span>
-                          {account.websiteUrl && (
-                            <a
-                              href={account.websiteUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-gray-600 hover:text-gray-800"
-                              onClick={(e) => e.stopPropagation()}
-                            >
-                              <ExternalLink className="w-4 h-4" />
-                            </a>
-                          )}
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <div
-                            className={`w-3 h-3 rounded-full ${getRiskColor(account.riskLevel)}`}
-                          />
-                          <span className="text-sm">
-                            {getRiskLabel(account.riskLevel)}
-                          </span>
+              {accounts
+                .filter((a) => a.riskLevel === "safe")
+                .map((account) => (
+                  <Card
+                    key={account.id}
+                    className="border-2 border-gray-800 p-5 cursor-pointer hover:shadow-lg transition"
+                    onClick={() => onAccountClick(account.id)}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-4">
+                        <div
+                          className={`w-12 h-12 ${getRiskColor(account.riskLevel)} rounded-lg`}
+                        />
+                        <div>
+                          <div className="font-bold mb-1 flex items-center gap-2">
+                            <span>{account.name}</span>
+                            {account.websiteUrl && (
+                              <a
+                                href={account.websiteUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-gray-600 hover:text-gray-800"
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                <ExternalLink className="w-4 h-4" />
+                              </a>
+                            )}
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <div
+                              className={`w-3 h-3 rounded-full ${getRiskColor(account.riskLevel)}`}
+                            />
+                            <span className="text-sm">
+                              {getRiskLabel(account.riskLevel)}
+                            </span>
+                          </div>
                         </div>
                       </div>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="border-2 border-gray-800"
+                      >
+                        View
+                      </Button>
                     </div>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="border-2 border-gray-800"
-                    >
-                      View
-                    </Button>
-                  </div>
-                </Card>
-              ))}
+                  </Card>
+                ))}
             </div>
           </div>
         )}

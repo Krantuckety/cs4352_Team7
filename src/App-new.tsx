@@ -95,7 +95,10 @@ export default function App() {
     setCurrentScreen("summary");
   };
 
-  const handleViewAuthenticator = (accountName?: string, stepIndex?: number) => {
+  const handleViewAuthenticator = (
+    accountName?: string,
+    stepIndex?: number,
+  ) => {
     setPreviousScreen(currentScreen);
     if (stepIndex !== undefined) {
       setSavedStepIndex(stepIndex);
@@ -117,7 +120,10 @@ export default function App() {
       <header className="bg-sky-700 border-b-2 border-gray-800">
         <div className="max-w-7xl mx-auto px-8 py-6">
           <div className="flex items-center justify-between">
-            <h1 className="text-4xl font-extrabold tracking-wide text-white" style={{ fontFamily: "Montserrat, sans-serif" }}>
+            <h1
+              className="text-4xl font-extrabold tracking-wide text-white"
+              style={{ fontFamily: "Montserrat, sans-serif" }}
+            >
               SHIELDHUB
             </h1>
             <nav className="flex gap-4">

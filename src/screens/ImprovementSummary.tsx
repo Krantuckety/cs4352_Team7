@@ -78,16 +78,10 @@ export default function ImprovementSummary({
             Back to Dashboard
           </Button>
           <div className="flex gap-3">
-            <Button
-              variant="outline"
-              className="border-2 border-gray-800"
-            >
+            <Button variant="outline" className="border-2 border-gray-800">
               Download Report
             </Button>
-            <Button
-              variant="outline"
-              className="border-2 border-gray-800"
-            >
+            <Button variant="outline" className="border-2 border-gray-800">
               Share Summary
             </Button>
           </div>
@@ -97,7 +91,8 @@ export default function ImprovementSummary({
       <div className="mb-8">
         <h2 className="text-3xl font-bold mb-2">Security Report</h2>
         <p className="text-gray-600">
-          Comprehensive analysis of your account security with actionable recommendations
+          Comprehensive analysis of your account security with actionable
+          recommendations
         </p>
       </div>
 
@@ -154,7 +149,10 @@ export default function ImprovementSummary({
           </h3>
           <div className="space-y-3">
             {accountsNeedingWork.map((account) => (
-              <Card key={account.id} className="border-2 border-gray-800 p-6 rounded-xl">
+              <Card
+                key={account.id}
+                className="border-2 border-gray-800 p-6 rounded-xl"
+              >
                 <div className="flex items-start gap-4">
                   <div
                     className={`w-12 h-12 border-2 border-gray-800 flex items-center justify-center flex-shrink-0 text-white font-bold rounded-lg ${
@@ -181,7 +179,8 @@ export default function ImprovementSummary({
                       </span>
                     </div>
                     <p className="text-gray-700 mb-3">
-                      {account.issues.filter((i) => !i.fixed).length} security issue
+                      {account.issues.filter((i) => !i.fixed).length} security
+                      issue
                       {account.issues.filter((i) => !i.fixed).length !== 1
                         ? "s"
                         : ""}{" "}
@@ -210,8 +209,8 @@ export default function ImprovementSummary({
           </div>
           <h3 className="text-2xl font-bold mb-2">All Accounts Secured!</h3>
           <p className="text-gray-700">
-            Outstanding! Your accounts are well-protected. Continue following these
-            security best practices to stay safe.
+            Outstanding! Your accounts are well-protected. Continue following
+            these security best practices to stay safe.
           </p>
         </Card>
       )}
@@ -221,7 +220,10 @@ export default function ImprovementSummary({
         <h3 className="text-2xl font-bold mb-4">Security Best Practices</h3>
         <div className="grid grid-cols-2 gap-4">
           {securityTips.map((tip, index) => (
-            <Card key={index} className="border-2 border-gray-800 p-6 rounded-xl hover:shadow-lg transition">
+            <Card
+              key={index}
+              className="border-2 border-gray-800 p-6 rounded-xl hover:shadow-lg transition"
+            >
               <div className="flex gap-4">
                 <div className="text-4xl">{tip.icon}</div>
                 <div>
@@ -233,8 +235,6 @@ export default function ImprovementSummary({
           ))}
         </div>
       </div>
-
-
     </div>
   );
 }
